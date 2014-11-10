@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ public class PaintActivity extends Activity {
 	private Map<Object, Integer> colorPalette;
 	// TODO: Dirty hack
 	public static int currentColor;
+	public static int currentBrushSize;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +53,34 @@ public class PaintActivity extends Activity {
         tv.setBackgroundColor(Color.YELLOW);
         colorPalette.put(tv.getTag(), Color.YELLOW);
         tv.setOnClickListener(new myColorListener());
+        
+        Button newDrawing = new Button(getBaseContext());
+        newDrawing = (Button) findViewById(R.id.btnNewDrawing);
+        newDrawing.setOnClickListener(new OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				DrawingView.attribPathPaintMap.clear();
+			}
+		});
+        
+        Button changeBrushSize = new Button(getBaseContext());
+        newDrawing = (Button) findViewById(R.id.btnNewDrawing);
+        newDrawing.setOnClickListener(new OnClickListener() {		
+			@Override
+			public void onClick(View v) {
+				DrawingView.attribPathPaintMap.clear();
+			}
+		});
+        
           
     }
     
     public class myColorListener implements View.OnClickListener {
-
 		@Override
 		public void onClick(View v) {
 			currentColor = colorPalette.get(v.getTag());
 			Toast.makeText(getBaseContext(), "TAG:"  + v.getTag() , Toast.LENGTH_SHORT).show();
 		}
-    	
     }
     
 }

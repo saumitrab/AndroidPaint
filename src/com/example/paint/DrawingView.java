@@ -5,58 +5,32 @@ import java.util.Map;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class DrawingView extends View {
-	
-	private final int paintColor = Color.BLACK;
-	private Paint paint;
 	// private Bitmap mField = null;
 	// private Canvas myCanvas;
 	
-	private Map<Integer, Path> pathMap;
+	// TODO: Convert this to a new class	
+	public static Map<Pair<Integer, Integer>, Pair<Path, Paint>> attribPathPaintMap;
+	
 	
 	public DrawingView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
-		setupPaint();
-		pathMap = new HashMap<Integer, Path>();
+		attribPathPaintMap = new HashMap<Pair<Integer, Integer>, Pair<Path, Paint>>();
 	}
-
-	private void setupPaint() {
-		paint = new Paint();
-		paint.setColor(paintColor);
-		paint.setAntiAlias(true);
-		paint.setStrokeWidth(5);
-		paint.setStyle(Paint.Style.STROKE);
-		paint.setStrokeJoin(Paint.Join.ROUND);
-		paint.setStrokeCap(Paint.Cap.ROUND);
-
-//		Path path = new Path();
-//		pathMap.put(paintColor, path);
-		/*
-		 * Optimize redrawing by caching the bitmap
-		View dv = new View(getContext());
-		dv = (DrawingView) findViewById(R.id.myDrawingView);
-		mField = Bitmap.createBitmap(100, 100, null);
-		Toast.makeText(getContext(), "" + dv.getWidth() + " x " +dv.getHeight()  , Toast.LENGTH_SHORT).show();
-
-		myCanvas = new Canvas(mField);
-		*/
-	}
-
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
-
-		
-		for (Path path : pathMap.values()) {
-			canvas.drawPath(path, paint);
+		for (Pair<Path, Paint> pairPathPaint : attribPathPaintMap.values()) {
+			canvas.drawPath(pairPathPaint.first, pairPathPaint.second);
 		}
 	}
 
@@ -65,7 +39,7 @@ public class DrawingView extends View {
 		
 		Path currentPath = getCurrentPath();
 		// TODO: Dirty hack
-		paint.setColor(PaintActivity.currentColor);
+		//paint.setColor(PaintActivity.currentColor);
 		
 		switch(event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
@@ -88,16 +62,45 @@ public class DrawingView extends View {
 	
 	protected Path getCurrentPath() {
 		Path currentPath = null;
-		if (pathMap.containsKey(PaintActivity.currentColor)) {
-			currentPath = pathMap.get(PaintActivity.currentColor);
+		
+		Pair<Integer, Integer> attrib = new Pair<Integer, Integer>(PaintActivity.currentColor, PaintActivity.currentBrushSize);
+		
+		if (attribPathPaintMap.containsKey(attrib)) {
+			Pair<Path, Paint> pairPathPaint = attribPathPaintMap.get(PaintActivity.currentColor);
+			currentPath = pairPathPaint.first;
 		} else {
+			Paint paint = new Paint();
+			paint.setColor(PaintActivity.currentColor);
+			paint.setAntiAlias(true);
+			paint.setStrokeWidth(PaintActivity.currentBrushSize);
+			paint.setStyle(Paint.Style.STROKE);
+			paint.setStrokeJoin(Paint.Join.ROUND);
+			paint.setStrokeCap(Paint.Cap.ROUND);
+			
 			currentPath = new Path();
-			pathMap.put(PaintActivity.currentColor, currentPath);
+			
+			Pair<Path, Paint> pairPathPaint = new Pair<Path, Paint>(currentPath, paint);
+			attribPathPaintMap.put(attrib, pairPathPaint);
 		}
 		return currentPath;
 	}
 	
-	  
+	@SuppressWarnings("unused")
+	private void initPaint(int color) {
+	
+//		Path path = new Path();
+//		pathMap.put(paintColor, path);
+		/*
+		 * Optimize redrawing by caching the bitmap
+		View dv = new View(getContext());
+		dv = (DrawingView) findViewById(R.id.myDrawingView);
+		mField = Bitmap.createBitmap(100, 100, null);
+		Toast.makeText(getContext(), "" + dv.getWidth() + " x " +dv.getHeight()  , Toast.LENGTH_SHORT).show();
+
+		myCanvas = new Canvas(mField);
+		*/
+	}
+  
 	  
 
 }

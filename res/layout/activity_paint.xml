@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     tools:context="${relativePackage}.${activityClass}" >
 
-    <com.example.paint.DrawingView
-        android:id="@+id/myDrawingView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tvBlack"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
-
     <TextView
         android:id="@+id/tvBlack"
         android:tag="1"
@@ -60,9 +52,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_toRightOf="@+id/tvGreen"
         android:text="         "
         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <com.example.paint.DrawingView
+        android:id="@+id/myDrawingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button1" />
+
+    <Button
+        android:id="@+id/btnNewDrawing"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:drawable/ic_input_get" />
+
+    <Button
+        android:id="@+id/btnBrushSize"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:drawable/ic_menu_edit" />
 
 </RelativeLayout>
