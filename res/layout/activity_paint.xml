@@ -60,9 +60,9 @@
         android:id="@+id/myDrawingView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/tvBlack"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button1" />
+        android:layout_below="@+id/btnNewDrawing" />
 
     <Button
         android:id="@+id/btnNewDrawing"

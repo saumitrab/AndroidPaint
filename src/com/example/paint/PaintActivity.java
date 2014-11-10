@@ -27,6 +27,7 @@ public class PaintActivity extends Activity {
         
         colorPalette = new HashMap<Object, Integer>();
         currentColor = Color.BLACK;
+        currentBrushSize = 5;
         
         TextView tv = new TextView(getBaseContext());
         tv = (TextView) findViewById(R.id.tvBlack);
@@ -64,8 +65,8 @@ public class PaintActivity extends Activity {
 		});
         
         Button changeBrushSize = new Button(getBaseContext());
-        newDrawing = (Button) findViewById(R.id.btnNewDrawing);
-        newDrawing.setOnClickListener(new OnClickListener() {		
+        changeBrushSize = (Button) findViewById(R.id.btnBrushSize);
+        changeBrushSize.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
 				DrawingView.attribPathPaintMap.clear();

@@ -66,7 +66,7 @@ public class DrawingView extends View {
 		Pair<Integer, Integer> attrib = new Pair<Integer, Integer>(PaintActivity.currentColor, PaintActivity.currentBrushSize);
 		
 		if (attribPathPaintMap.containsKey(attrib)) {
-			Pair<Path, Paint> pairPathPaint = attribPathPaintMap.get(PaintActivity.currentColor);
+			Pair<Path, Paint> pairPathPaint = attribPathPaintMap.get(attrib);
 			currentPath = pairPathPaint.first;
 		} else {
 			Paint paint = new Paint();
@@ -92,8 +92,7 @@ public class DrawingView extends View {
 //		pathMap.put(paintColor, path);
 		/*
 		 * Optimize redrawing by caching the bitmap
-		View dv = new View(getContext());
-		dv = (DrawingView) findViewById(R.id.myDrawingView);
+
 		mField = Bitmap.createBitmap(100, 100, null);
 		Toast.makeText(getContext(), "" + dv.getWidth() + " x " +dv.getHeight()  , Toast.LENGTH_SHORT).show();
 
