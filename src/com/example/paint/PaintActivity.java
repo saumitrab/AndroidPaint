@@ -3,9 +3,12 @@ package com.example.paint;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.app.Activity;
+import com.example.paint.BrushSizeSelector.BrushSizeSelectorListener;
+
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class PaintActivity extends Activity {
+public class PaintActivity extends FragmentActivity implements BrushSizeSelectorListener {
 
 	private Map<Object, Integer> colorPalette;
 	// TODO: Dirty hack
@@ -69,19 +72,29 @@ public class PaintActivity extends Activity {
         changeBrushSize.setOnClickListener(new OnClickListener() {		
 			@Override
 			public void onClick(View v) {
-				DrawingView.attribPathPaintMap.clear();
+				show();
 			}
 		});
-        
-          
+
+    }
+    
+    public void show() {
+    	FragmentManager fm = getSupportFragmentManager();
+    	BrushSizeSelector brushSizeSelector = new BrushSizeSelector();
+    	brushSizeSelector.show(fm, "brush_size_selector");
     }
     
     public class myColorListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			currentColor = colorPalette.get(v.getTag());
-			Toast.makeText(getBaseContext(), "TAG:"  + v.getTag() , Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getBaseContext(), "TAG:"  + v.getTag() , Toast.LENGTH_SHORT).show();
 		}
     }
+
+	@Override
+	public void onSelectingBrushSize(int brushSize) {
+		currentBrushSize = brushSize;		
+	}
     
 }

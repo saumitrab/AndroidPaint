@@ -14,17 +14,23 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
+        public static final int brush_size_selector=0x7f060008;
         public static final int btnBrushSize=0x7f060007;
+        public static final int btnBrushSize10=0x7f06000b;
+        public static final int btnBrushSize15=0x7f06000c;
+        public static final int btnBrushSize5=0x7f06000a;
         public static final int btnNewDrawing=0x7f060006;
         public static final int myDrawingView=0x7f060005;
         public static final int tvBlack=0x7f060000;
         public static final int tvBlue=0x7f060002;
+        public static final int tvBrushSizeDesc=0x7f060009;
         public static final int tvGreen=0x7f060003;
         public static final int tvRed=0x7f060001;
         public static final int tvYellow=0x7f060004;
     }
     public static final class layout {
         public static final int activity_paint=0x7f030000;
+        public static final int brush_size_selecteor=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
